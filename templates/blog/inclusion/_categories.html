@@ -1,0 +1,16 @@
+<div class="widget widget-category">
+                    <h3 class="widget-title">分类</h3>
+
+                    <ul>
+                        {% for category in show_categories %}
+
+                        <li>
+                            <a href="{% url 'blog:categories' category.pk %}">{{ category.name }}<span class="post-count">(13)</span></a>
+                        </li>
+                             {% empty %}
+                                   没有分类
+                          {% endfor %}
+
+
+                    </ul>
+</div>

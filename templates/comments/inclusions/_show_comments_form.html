@@ -1,0 +1,27 @@
+ <h3>发表评论</h3>
+<form action="{% url 'comments:comments' post.pk %}" method="post" class="comment-form">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-4">
+            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+            {{ form.name }}
+            {{ form.name.errors }}
+        </div>
+         <div class="col-md-4">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+            {{ form.email }}
+            {{ form.email.errors }}
+        </div>
+        <div class="col-md-4">
+            <label for="{{ form.website.id_for_label }}">{{ form.website.label }}</label>
+            {{ form.website }}
+            {{ form.website.errors }}
+        </div>
+         <div class="col-md-12">
+            <label for="{{ form.text.id_for_label }}">{{ form.text.label }}</label>
+            {{ form.text }}
+            {{ form.text.errors }}
+             <button type="submit" class="comment-btn">提交评论</button>
+        </div>
+    </div>    <!-- row -->
+</form>
