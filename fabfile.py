@@ -1,6 +1,6 @@
 from fabric import task
 from invoke import Responder
-from ._credentials import github_username, github_password
+from credentials import github_username, github_password
 
 
 def _get_github_auth_responders():
