@@ -1,0 +1,4 @@
+.*
+credentials.py
+*.sqlite3
+fabfile.py
