@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 
 volumes:
   static:
@@ -13,8 +13,14 @@ services:
     container_name: django-blog
     working_dir: /app
     volumes:
-      - database: /app/database
-      - static: /app/static
+      - type: bind
+        source: database
+        target: /app/database
+      - type: bind
+        source: static
+        target: /app/static
+    #  - database: "/app/database"
+    #  - static: /app/static
     env_file:
       - .envs/.production
     ports:
@@ -28,7 +34,10 @@ services:
     image: nginx
     container_name: nginx
     volumes:
-      - static: /apps/django-blog/static
+      - type: bind
+        source: static
+        target: /apps/django-blog/static
+ #     - static: /apps/django-blog/static
     ports:
       - "80:80"
       - "443:443"

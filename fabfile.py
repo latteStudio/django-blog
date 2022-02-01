@@ -7,6 +7,7 @@ def delpoy():
     c = Connection(host='192.168.80.200', user='blog')
     c.run('pwd')
 
+delpoy()
 # def _get_github_auth_responders():
 #     username_responder = Responder(
 #         pattern="Username for 'https//github.com':",

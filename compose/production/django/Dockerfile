@@ -1,8 +1,10 @@
-FROM python:3.6-apline
+FROM python:3.6-alpine
 
 ENV PYTHONUNBUFFERED 1
+#ENV HTTP_PROXY http://192.168.80.1:1080
+#ENV HTTPS_PROXY http://192.168.80.1:1080
 
-RUN apk update \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories  && apk update \
 # pillow dependencies
     && apk add jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev
 
