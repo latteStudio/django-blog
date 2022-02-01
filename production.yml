@@ -4,7 +4,7 @@ volumes:
   static:
   database:
 
-service:
+services:
   django-blog:
     build:
       context: .
