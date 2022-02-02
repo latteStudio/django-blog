@@ -42,6 +42,9 @@ class Post(models.Model):
         verbose_name_plural = verbose_name
         ordering = ['-created_time', 'title']
 
+    # 添加文件阅读量字段      默认是0，不可admin后台编辑
+    views = models.PositiveIntegerField(default=0, editable=False)
+
     title = models.CharField(verbose_name="标题", max_length=200)
     body = models.TextField(verbose_name="内容", max_length=600)
     created_time = models.DateTimeField("创建时间", default=timezone.now)
@@ -52,6 +55,11 @@ class Post(models.Model):
 
     excerpt = models.CharField(max_length=50, verbose_name="摘要", blank=True)
     user = models.ForeignKey(to=User, verbose_name="作者", on_delete=models.CASCADE) # 对应author注意！
+
+    def update_views(self):
+        # 定义实例方法，每个Post实例本身可以更新
+        self.views += 1
+        self.save(update_fields=['views'])
 
     def __str__(self):
         return self.title

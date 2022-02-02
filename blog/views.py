@@ -18,6 +18,10 @@ def index(request):
 
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+
+    # 阅读量+1
+    post.update_views()
+
     md = markdown.Markdown(extensions=[   # 将数据库中存储的markdown格式的文本，经由markdown库转为html格式，然后再结合模版渲染！
         'markdown.extensions.extra',
         'markdown.extensions.codehilite',
@@ -25,6 +29,7 @@ def detail(request, pk):
         TocExtension(slugify=slugify),
     ])
     post.body = md.convert(post.body)   # 对post的body进行转换
+
     match = re.search(r'<div class="toc">\s*<ul>(.+)</ul>\s*</div>', md.toc, re.S)
 
     post.toc = md.toc if match is not None else ''  # 动态给post对象，添加toc属性，然后在模版中处理
