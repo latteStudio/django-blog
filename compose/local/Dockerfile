@@ -16,7 +16,7 @@ WORKDIR /app
 COPY Pipfile /app/Pipfile
 COPY Pipfile.lock /app/Pipfile.lock
 RUN  pip install pipenv -i https://pypi.douban.com/simple
-RUN  pip install --system --deploy --ignore-pipfile
+RUN  pipenv install --system --deploy --ignore-pipfile
 # 修改pip的源、先下载pipenv --system级别：根据Pipfile下载依赖
 
 # 拷贝start.sh脚本，注意linux系统的换行符、添加执行权限
