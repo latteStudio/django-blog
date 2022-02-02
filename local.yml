@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  django-blog-dev:
+    build:
+      context: .
+      dockerfile: ./compose/local/Dockerfile
+    image: django-blog-dev
+    container_name: django-blog-dev
+    working_dir: /app
+    volumes:
+      - type: bind
+        source: .
+        target: /app
+    ports:
+    - "8000:8000"
+    command: /start.sh
