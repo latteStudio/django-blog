@@ -131,7 +131,7 @@ PAGINATION_SETTINGS = {
 # haystack相关配置
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.elasticsearch2_backend.Elasticsearch2SearchEngine',
+        'ENGINE': 'haystack.backends.elasticsearch2_backend.Elasticsearch2SearchEngine',
         'URL': '',
         'INDEX_NAME': 'django-blog',
 

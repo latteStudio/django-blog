@@ -9,7 +9,6 @@ markdown = "*"
 gunicorn = "*"
 faker = "*"
 django-pure-pagination = "*"
-haystack = "*"
 django-haystack = "*"
 elasticsearch = ">=2,<3"
 
