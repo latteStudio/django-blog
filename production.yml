@@ -29,14 +29,14 @@ services:
         soft: 65536
         hard: 65536
 
-  django-blog:
+  django-blog-prod:
     build:
       context: .
       dockerfile: compose/production/django/Dockerfile
     depends_on:
       - elasticsearch-prod
-    image: django-blog
-    container_name: django-blog
+    image: django-blog-prod
+    container_name: django-blog-prod
     working_dir: /app
     volumes:
       - type: bind
@@ -57,6 +57,8 @@ services:
     build:
       context: .
       dockerfile: compose/production/nginx/Dockerfile
+    depends_on:
+      - django-blog-prod
     image: nginx
     container_name: nginx
     volumes:
