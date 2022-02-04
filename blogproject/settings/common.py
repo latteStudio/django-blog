@@ -131,7 +131,8 @@ PAGINATION_SETTINGS = {
 # haystack相关配置
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.elasticsearch2_backend.Elasticsearch2SearchEngine',
+
+        'ENGINE': 'blog.es2ik_backend.Elasticsearch2IkSearchEngine',
         'URL': '',
         'INDEX_NAME': 'django-blog',
 
@@ -141,6 +142,7 @@ HAYSTACK_CONNECTIONS = {
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
+HAYSTACK_CUSTOM_HIGHLIGHTER = 'blog.utils.Highlighter'
 
 
 
