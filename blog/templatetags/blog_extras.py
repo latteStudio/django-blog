@@ -2,6 +2,9 @@ from django import template
 from ..models import Post, Category, Tag
 # 自定义模版标签
 
+from django.db.models import Count
+# 聚会函数
+
 register = template.Library()
 # 实例化一个注册器
 
@@ -34,14 +37,17 @@ def show_archive(context):
 # 分类模版标签
 @register.inclusion_tag('blog/inclusion/_categories.html', takes_context=True)
 def show_categories(context):
+
+    show_categories = Category.objects.annotate(counter_post=Count('post')).filter(counter_post__gt=0)
     return {
-        "show_categories": Category.objects.all(),
+        "show_categories": show_categories,
     }
 
 
 # 标签云 模版标签
 @register.inclusion_tag('blog/inclusion/_tags.html', takes_context=True)
 def show_tags(context):
+    show_tags = Tag.objects.annotate(counter_post=Count('post')).filter(counter_post__gt=0)
     return {
-        "show_tags": Tag.objects.all(),
+        "show_tags": show_tags,
     }

@@ -7,6 +7,25 @@ import markdown
 # Create your models here.
 # 定义3个model，对应三张表：文章post、标签tag、分类category
 from django.utils.html import strip_tags
+from django.utils.functional import cached_property
+import re
+from django.utils.text import slugify
+from markdown.extensions.toc import TocExtension
+
+# 抽成通用，md->html的转换函数
+def gen_rich_conent(value):
+    md = markdown.Markdown(extensions=[   # 将数据库中存储的markdown格式的文本，经由markdown库转为html格式，然后再结合模版渲染！
+        'markdown.extensions.extra',
+        'markdown.extensions.codehilite',
+        'markdown.extensions.toc',
+        TocExtension(slugify=slugify),
+    ])
+    content = md.convert(value)   # 对post的body进行转换
+
+    match = re.search(r'<div class="toc">\s*<ul>(.+)</ul>\s*</div>', md.toc, re.S)
+
+    toc = match.group(1) if match is not None else ''  # 动态给post对象，添加toc属性，然后在模版中处理
+    return {'content': content, 'toc': toc}
 
 
 # 标签
@@ -80,3 +99,15 @@ class Post(models.Model):
         return reverse('blog:detail', kwargs={
             'pk': self.id,
         })
+
+    @property
+    def toc(self):
+        return self.rich_content.get('toc', "")
+
+    @property
+    def body_html(self):
+        return self.rich_content.get('content', "")
+
+    @cached_property
+    def rich_content(self):
+        return gen_rich_conent(self.body)

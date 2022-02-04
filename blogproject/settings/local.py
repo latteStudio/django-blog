@@ -9,3 +9,5 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = ['*']
+HAYSTACK_CONNECTIONS['defalut']['URL'] = 'http://elasticsearch-dev:9200'
+# 在容器的环境变量，自动解析为依赖的es容器的ip

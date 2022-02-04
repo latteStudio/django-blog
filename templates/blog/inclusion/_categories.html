@@ -5,7 +5,7 @@
                         {% for category in show_categories %}
 
                         <li>
-                            <a href="{% url 'blog:categories' category.pk %}">{{ category.name }}<span class="post-count">(13)</span></a>
+                            <a href="{% url 'blog:categories' category.pk %}">{{ category.name }}<span class="post-counter">({{ category.counter_post }})</span></a>
                         </li>
                              {% empty %}
                                    没有分类

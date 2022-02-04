@@ -3,7 +3,7 @@
                     <ul>
                         {% for tag in show_tags %}
                             <li>
-                              <a href="{% url 'blog:tags' tag.pk %}">{{ tag.name }}</a>
+                              <a href="{% url 'blog:tags' tag.pk %}">{{ tag.name }}<span class="post-counter">({{ tag.counter_post }})</span> </a>
                             </li>
                             {% empty %}
                                 没有标签!

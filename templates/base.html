@@ -6,7 +6,12 @@
 <html>
 <head>
     <title>Black &amp; White</title>
-
+    <style>
+         /* 搜索关键词高亮 */
+        span.highlighted {
+          color: red;
+        }
+    </style>
     <!-- meta -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -95,6 +100,10 @@
 <div class="copyrights">Modified by <a href="http://zmrenwu.com/">追梦人物的博客</a></div>
 
 <div class="content-body">
+    <form role="search" method="get" id="searchform" action="{% url 'haystack:haystack_search' %}">
+        <input type="search" name="q" placeholder="搜索..." required>
+        <button type="submit"><span class="ion-ios-close-empty"></span> </button>
+    </form>
     <div class="container">
         <div class="row">
             <main class="col-md-8">
@@ -110,7 +119,7 @@
                 {% show_categories %}
                 {% show_tags %}
                 <div class="rss">
-                    <a href=""><span class="ion-social-rss-outline"></span> RSS 订阅</a>
+                    <a href="{% url 'rss' %}"><span class="ion-social-rss-outline"></span> RSS 订阅</a>
                 </div>
             </aside>
         </div>
