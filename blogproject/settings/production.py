@@ -9,3 +9,4 @@ DEBUG = False
 
 
 ALLOWED_HOSTS = ["192.168.80.200"]
+HAYSTACK_CONNECTIONS['default']['URL'] = 'http://elasticsearch-prod:9200'

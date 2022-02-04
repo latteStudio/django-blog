@@ -3,12 +3,38 @@ version: '3.2'
 volumes:
   static:
   database:
+  esdata-prod:
 
 services:
+  elasticsearch-prod:
+    build:
+      context: .
+      dockerfile: ./compose/production/elasticsearch/Dockerfile
+    image: elasticsearch-prod
+    container_name: elasticsearch-prod
+    volumes:
+      - type: bind
+        source: esdata-prod
+        target: /usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nproc: 65536
+      nofile:
+        soft: 65536
+        hard: 65536
+
   django-blog:
     build:
       context: .
       dockerfile: compose/production/django/Dockerfile
+    depends_on:
+      - elasticsearch-prod
     image: django-blog
     container_name: django-blog
     working_dir: /app
