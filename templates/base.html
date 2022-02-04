@@ -9,7 +9,7 @@
     <style>
          /* 搜索关键词高亮 */
         span.highlighted {
-          color: red;
+          color: blue;
         }
     </style>
     <!-- meta -->
@@ -100,7 +100,7 @@
 <div class="copyrights">Modified by <a href="http://zmrenwu.com/">追梦人物的博客</a></div>
 
 <div class="content-body">
-    <form role="search" method="get" id="searchform" action="{% url 'haystack:haystack_search' %}">
+    <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
         <input type="search" name="q" placeholder="搜索..." required>
         <button type="submit"><span class="ion-ios-close-empty"></span> </button>
     </form>
