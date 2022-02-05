@@ -4,6 +4,8 @@ from django.test import TestCase
 
 
 class SmokeTestCase(TestCase):
+    def setup(self):
+        self.value = 100
 
     def test_smoke(self):
-        self.assertEqual(1+1, 2)
+        self.assertEqual(self.value, 100)

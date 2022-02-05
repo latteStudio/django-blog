@@ -34,6 +34,7 @@ class PostModelTestCase(TestCase):
             category=cate,
             author=user,
         )
+        self.post = 100
 
     def test_str_repr(self):
         self.assertEqual(self.post.__str__(), self.post.title)
