@@ -15,7 +15,7 @@ from django.urls import reverse
 
 
 class PostModelTestCase(TestCase):
-    def setup(self):
+    def setUp(self):
         # 设置初始化模型实例数据
         # 断开haystack的sinal，测试文章，无需索引
         apps.get_app_config('haystack').signal_processor.teardown()
