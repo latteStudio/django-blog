@@ -12,6 +12,7 @@ import re
 from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
 
+
 # 抽成通用，md->html的转换函数
 def gen_rich_conent(value):
     md = markdown.Markdown(extensions=[   # 将数据库中存储的markdown格式的文本，经由markdown库转为html格式，然后再结合模版渲染！
