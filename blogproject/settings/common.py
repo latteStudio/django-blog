@@ -75,7 +75,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        #'NAME': os.path.join(BASE_DIR, 'database', 'db.sqlite3'),   # 容器中映射加了一层目录
+        #'NAME': os.path.join(BASE_DIR, 'database', 'db.sqlite3'),   # 生产环境中，容器中映射加了一层目录
     }
 }
 
