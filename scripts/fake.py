@@ -20,8 +20,8 @@ print(sys.path)
 if __name__ == '__main__':
     # 设置django配置变量，并setup启动django
     # 只有启动django后，才能使用django的orm的接口，才能匹配生成测试数据，
-    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blogproject.settings.local')
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blogproject.settings.production')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blogproject.settings.local')
+    # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blogproject.settings.production')
     django.setup()
 
     from blog.models import Post, Category, Tag
