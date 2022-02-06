@@ -151,7 +151,7 @@ class AdminTestCase(BlogDataTestCase):
 
         self.client.login(username=self.user.username, password='admin')
         res = self.client.post(self.url, data=data)
-        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.status_code, 302)
         post = Post.objects.all().latest('created_time')
         self.assertEqual(post.user, self.user)
         self.assertEqual(post.title, data.get('title'))
