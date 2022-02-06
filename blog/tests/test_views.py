@@ -132,8 +132,8 @@ class PostDetailViewTestCase(BlogDataTestCase):
         self.assertContains(res, self.md_post.title)
 
         post_template_var = res.context['post']
-        self.assertHTMLEqual(post_template_var.body_html, "<h1 id='标题'>标题</h1>")
-        self.assertHTMLEqual(post_template_var.toc, '<li><a href="#标题">一级标题</li>')
+        self.assertHTMLEqual(post_template_var.body_html, "<h1 id='一级标题'>一级标题</h1>")
+        self.assertHTMLEqual(post_template_var.toc, '<li><a href="#一级标题">一级标题</li>')
 
 
 
