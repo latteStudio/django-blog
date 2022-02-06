@@ -25,13 +25,13 @@ from django.db.models import Q
 #     })
 
 
-def search(request):
-    value = request.GET.get('q')
-    post_list = Post.objects.all().filter(Q(title__icontains=value) | Q(body__icontains=value))
-
-    return render(request, 'blog/index.html', context={
-        'post_list': post_list,
-    })
+# def search(request):
+#     value = request.GET.get('q')
+#     post_list = Post.objects.all().filter(Q(title__icontains=value) | Q(body__icontains=value))
+#
+#     return render(request, 'blog/index.html', context={
+#         'post_list': post_list,
+#     })
 
 
 class IndexView(PaginationMixin, ListView):
