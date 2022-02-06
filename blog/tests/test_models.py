@@ -32,7 +32,7 @@ class PostModelTestCase(TestCase):
             title='测试标题',
             body='测试内容',
             category=cate,
-            author=user,
+            user=user,
         )
         self.post = 100
 
