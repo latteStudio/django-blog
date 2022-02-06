@@ -7,7 +7,7 @@ from django.utils import timezone
 from datetime import timedelta
 from blog.feed import AllPostsRssFeed
 from django.template import Template, Context
-
+from blog.templatetags.blog_extras import show_recently_post
 
 class TemplateTagsTestCase(TestCase):
     def setUp(self):
