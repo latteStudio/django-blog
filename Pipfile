@@ -11,10 +11,10 @@ faker = "*"
 django-pure-pagination = "*"
 django-haystack = "*"
 elasticsearch = ">=2,<3"
+coverage = "*"
 
 [dev-packages]
 fabric = "*"
-coverage = "*"
 
 [requires]
 python_version = "3.6"
