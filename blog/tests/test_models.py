@@ -43,6 +43,7 @@ class PostModelTestCase(TestCase):
 
         old_modified_time = self.post.modified_time
         self.post.body = '内容更新'
+        self.post.sava()
         self.post.refresh_from_db()
 
         self.assertTrue(self.post.modified_time > old_modified_time)
