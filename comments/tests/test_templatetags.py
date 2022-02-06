@@ -8,6 +8,7 @@ from .test_base import CommentDataTestCase
 class CommentExtraTestCase(CommentDataTestCase):
     def setUp(self):
         super().setUp()
+        self.ctx = Context()
 
     def test_show_comment_form_with_invalid_form_data(self):
         template = Template(
