@@ -20,7 +20,7 @@ class PostModelTestCase(TestCase):
         # 断开haystack的sinal，测试文章，无需索引
         apps.get_app_config('haystack').signal_processor.teardown()
 
-        user = User.object.create_superuser(
+        user = User.objects.create_superuser(
             username='admin',
             email='admin@admin.com',
             password='admin'
