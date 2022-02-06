@@ -21,7 +21,7 @@ from datetime import timedelta
 
 class BlogDataTestCase(TestCase):
     def setUp(self):
-        apps.get_app_config('haystack').sinal_processor.teardown()
+        apps.get_app_config('haystack').signal_processor.teardown()
 
         self.user = User.objects.create_superuser(
             username='admin',
