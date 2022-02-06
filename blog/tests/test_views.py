@@ -66,11 +66,11 @@ class BlogDataTestCase(TestCase):
 class CategoryViewTestCase(BlogDataTestCase):
     def setUp(self):
         super(CategoryViewTestCase, self).setUp()   #继承父类的数据
-        self.url = reverse('blog:categories', kwargs={'pk': self.cate1.pk})
-        self.url2 = reverse('blog:categories', kwargs={'pk': self.cate2.pk})
+        self.url = reverse('blog:categories', kwargs={'category_id': self.cate1.pk})
+        self.url2 = reverse('blog:categories', kwargs={'category_id': self.cate2.pk})
 
     def test_visit_a_nonexist_category(self):
-        url = reverse('blog:categories', kwargs={'pk': 100})
+        url = reverse('blog:categories', kwargs={'category_id': 100})
         res = self.client.get(url)
         self.assertEqual(res.status_code, 404)
 
