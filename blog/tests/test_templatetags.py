@@ -28,7 +28,7 @@ class TemplateTagsTestCase(TestCase):
             title='测试标题',
             body='测试内容',
             category=self.cate,
-            author=self.user,
+            user=self.user,
         )
         context = Context(show_recently_post(self.ctx))
         template = Template(
