@@ -22,6 +22,7 @@ class TemplateTagsTestCase(TestCase):
         self.cate = Category.objects.create(
             name='cate1'
         )
+        self.ctx = Context()
 
     def test_show_recent_posts_with_posts(self):
         post = Post.objects.create(
