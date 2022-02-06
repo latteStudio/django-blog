@@ -8,7 +8,7 @@
                             <a href="{% url 'blog:categories' category.pk %}">{{ category.name }}<span class="post-counter">({{ category.counter_post }})</span></a>
                         </li>
                              {% empty %}
-                                   没有分类
+                                   没有该分类文章
                           {% endfor %}
 
 

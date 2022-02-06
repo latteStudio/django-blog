@@ -79,7 +79,7 @@ class CategoryViewTestCase(BlogDataTestCase):
         res = self.client.get(self.url2)
         self.assertEqual(res.status_code, 200)
         self.assertTemplateUsed('blog/index.html')
-        self.assertContains(res, '没有发布的文章')
+        self.assertContains(res, '没有该分类文章')
 
     def test_with_post(self):
         res = self.client.get(self.url)
