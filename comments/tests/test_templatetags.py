@@ -25,9 +25,3 @@ class CommentExtraTestCase(CommentDataTestCase):
         self.assertFalse(form.is_valid())
         context = Context(show_comments_form(self.ctx, self.post, form=form))
         expected_html = template.render(context)
-
-        for field in form:
-            label = '<label for="{}">{}：</label>'.format(field.id_for_label, field.label)
-            self.assertInHTML(label, expected_html)
-            self.assertInHTML(str(field), expected_html)
-            self.assertInHTML(str(field.errors), expected_html)
