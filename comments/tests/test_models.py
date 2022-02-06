@@ -13,5 +13,5 @@ class CommentModelTestCase(CommentDataTestCase):
         )
 
     def test_str_repr(self):
-        self.assertEqual(self.comment.__str__(), 'content')
+        self.assertEqual(self.comment.__str__(), 'user1:content')
 
