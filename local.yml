@@ -41,7 +41,7 @@ services:
   django-blog-dev:
     depends_on:
       - elasticsearch-dev
-      - redis-dev
+  #    - redis-dev
     build:
       context: .
       dockerfile: ./compose/local/Dockerfile
