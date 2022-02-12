@@ -126,7 +126,7 @@ class PostObjectKeyConstructor(DefaultKeyConstructor):
     updated_at = PostUpdatedAtKeyBit()
 
 
-class CommentListKeyConstructor(DefaultKeyConstructor)
+class CommentListKeyConstructor(DefaultKeyConstructor):
     list_sql = ListSqlQueryKeyBit()
     pagination = PaginationKeyBit()
     updated_at = CommentUpdatedAtKeyBit()
