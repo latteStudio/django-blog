@@ -77,7 +77,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework import viewsets
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
-from rest_framework.serializers import DateField
+from rest_framework.serializers import DateField, CharField
 
 from django_filters.rest_framework import DjangoFilterBackend
 from .filters import PostFilter
@@ -85,6 +85,12 @@ from comments.serializer import CommentsSerializer
 
 from drf_haystack.viewsets import HaystackViewSet
 from .serializers import PostHaystackSerializer
+
+from .utils import Highlighter
+# 导入自定义的改过的高亮类
+
+
+
 
 
 class PostSearchView(HaystackViewSet):

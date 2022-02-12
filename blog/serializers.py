@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from comments.models import Comments
 
 from drf_haystack.serializers import HaystackSerializerMixin
-
-
+from rest_framework.serializers import CharField
+from .utils import Highlighter
 
 # class CommentSerializer(serializers.Serializer):
 # 类似model.Models form.ModelForm form.Form serializer.Serializer serializer.ModelSerializer
@@ -74,7 +74,26 @@ class PostRetrieveSerializer(serializers.ModelSerializer):
 
 
 class PostHaystackSerializer(HaystackSerializerMixin, PostRetrieveSerializer):
+    title = HighlightedCharField()
+    summary = HighlightedCharField(source="body")
+
     class Meta(PostRetrieveSerializer.Meta):
         search_fields = ['text']
+        fields = {
+            'id',
+            'title',
+            'summary',
+            'created_time',
+            'excerpt',
+            'category',
+            'user',
+            'views',
+        }
 
-
+class HighlightedCharField(CharField):
+    def to_representation(self, value):
+        value = super().to_representation(value)
+        request = self.context["request"]
+        query_v = request.query_params['text'] # 传入的查询参数值，比如?text=md中的md
+        highlighter = Highlighter(query_v)
+        return highlighter.highlight(value)
