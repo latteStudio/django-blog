@@ -88,7 +88,7 @@ class PostHaystackSerializer(HaystackSerializerMixin, PostRetrieveSerializer):
 
     class Meta(PostRetrieveSerializer.Meta):
         search_fields = ['text']
-        fields = {
+        fields = [
             'id',
             'title',
             'summary',
@@ -97,5 +97,5 @@ class PostHaystackSerializer(HaystackSerializerMixin, PostRetrieveSerializer):
             'category',
             'user',
             'views',
-        }
+        ]
 
