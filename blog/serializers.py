@@ -3,7 +3,7 @@ from .models import Post, Category, Tag
 from django.contrib.auth.models import User
 from comments.models import Comments
 
-from drf_haystack.serializers import HaystackSerializer
+from drf_haystack.serializers import HaystackSerializerMixin
 
 
 
@@ -73,7 +73,7 @@ class PostRetrieveSerializer(serializers.ModelSerializer):
         ]
 
 
-class PostHaystackSerializer(HaystackSerializer, PostRetrieveSerializer):
+class PostHaystackSerializer(HaystackSerializerMixin, PostRetrieveSerializer):
     class Meta(PostRetrieveSerializer.Meta):
         search_fields = ['text']
 
