@@ -28,7 +28,7 @@ class Comments(models.Model):
         return "{}:{}".format(self.name, self.text[:20])
 
 
-def change_comment_updated_at(sendef=None, instance=None, *args, **kwargs)
+def change_comment_updated_at(sendef=None, instance=None, *args, **kwargs):
     cache.set("comment_updated_at", datetime.utcnow())
 
 
