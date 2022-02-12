@@ -28,14 +28,14 @@ services:
         soft: 65536
         hard: 65536
   redis-dev:
-    image: 'bitnami/redis:5.0’
+    image: 'bitnami/redis:5.0'
     container_name: redis-dev
     ports:
     - '6379:6379'
     volumes:
     - type: bind
-      source: '/bitnami/redis/data'
-      target: redis-data
+      source: redis-data
+      target: /bitnami/redis/data
     env_file:
       - .envs/.local
   django-blog-dev:
