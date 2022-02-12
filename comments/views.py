@@ -7,6 +7,17 @@ from blog.models import Post
 from django.contrib import messages
 
 
+from rest_framework import mixins, viewsets
+from .models import Comments
+from .serializer import CommentsSerializer
+
+
+class CommentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    serializer_class = CommentsSerializer
+
+    def get_queryset(self):
+        return Comments.objects.all()
+
 @require_POST   #只允许post方法能访问
 def comments(request, post_pk):
     form_obj = CommentsForm(request.POST)

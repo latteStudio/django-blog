@@ -16,11 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from blog.feed import AllPostsRssFeed
+from rest_framework import routers
+from blog.views import PostViewSet
+from comments.views import CommentViewSet
+
+
+router = routers.DefaultRouter()
+router.register(r'posts', PostViewSet, basename='post')
+router.register(r'comments', CommentViewSet, basename='comment')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls'), name='blog'),
     path('', include('comments.urls'), name='comments'),
     path('all/rss/', AllPostsRssFeed(), name='rss'),
-    path('search/', include('haystack.urls'))
+    path('search/', include('haystack.urls')),
+    path('api/', include(router.urls)),
+    path('api/auth', include("rest_framework.urls"), name='rest_framework')
     ]

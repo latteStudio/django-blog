@@ -25,6 +25,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # Application definition
 
 INSTALLED_APPS = [
+    'django_filters',
+    'rest_framework',
     'haystack',
     'pure_pagination',
     'comments.apps.CommentsConfig',
@@ -127,6 +129,11 @@ PAGINATION_SETTINGS = {
     'SHOW_FIRST_PAGE_WHEN_INVALID': True,
 }
 
+import sys
+
+
+
+
 
 # haystack相关配置
 HAYSTACK_CONNECTIONS = {
@@ -146,7 +153,17 @@ HAYSTACK_CUSTOM_HIGHLIGHTER = 'blog.utils.Highlighter'
 
 
 
+# 命令行参数中有test时，禁用后端的引擎，即不连接es服务，（本地无es服务时使用）
+TESTING = 'test' in sys.argv
+if TESTING:
+    HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.BaseSignalProcessor'
+    HAYSTACK_CONNECTIONS['default'] = {
+        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
+    }
 
 
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,
 
-
+}

@@ -18,6 +18,14 @@ from django.views.generic import ListView, DetailView
 
 from django.db.models import Q
 
+
+# rest-api 相关导入
+from rest_framework import status
+from .serializers import PostRetrieveSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
+
 # def index(request):
 #     post_list = Post.objects.all().order_by('-created_time')   # -为逆序排序
 #     return render(request, 'blog/index.html', context={
@@ -39,8 +47,70 @@ class IndexView(PaginationMixin, ListView):
     template_name = 'blog/index.html'   # 渲染模版是？
     context_object_name = 'post_list'   # 定义给模版中引用的变量，其值应该是查询后的所有对象的列表
     paginate_by = 10 # 每10个分一页
-#
-#
+
+# # 首页视图——rest改进
+# @api_view(http_method_names=['GET'])    #   装饰后，index视图函数就成了restful api的视图，装饰器内部实现了：内容协商、认证、鉴权、限流等
+# def index(request):
+#     post_list = Post.objects.all().order_by('-created_time')
+#     serializer = PostListSerializer(post_list, many=True)
+#     return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
+from rest_framework.permissions import AllowAny
+
+# # 首页列表，用rest-api的类视图改进：
+# class IndexPostListAPIView(ListAPIView):
+#     """逻辑通用，在继承的ListAPIView继承中实现，只需定义返回哪个查询的结果集
+#         结果集中对象，如何序列化
+#         如何分页
+#         访问的权限
+#     """
+#     queryset = Post.objects.all()
+#     serializer_class = PostListSerializer
+#     pagination_class = PageNumberPagination
+#     permission_classes = [AllowAny]
+
+
+# 首页列表，用视图集改进，一个对象的所有支持方法，对应的视图函数，用视图集定义
+from rest_framework import viewsets
+from rest_framework import mixins, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.serializers import DateField
+
+from django_filters.rest_framework import DjangoFilterBackend
+from .filters import PostFilter
+from comments.serializer import CommentsSerializer
+
+
+class PostViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
+    serializer_class = PostRetrieveSerializer
+    queryset = Post.objects.all()
+    # pagination_class = PageNumberPagination
+    pagination_class = LimitOffsetPagination
+    permission_classes = [AllowAny]
+
+    filter_backends = [DjangoFilterBackend]
+    filter_class = PostFilter
+
+    @action(methods=['GET'], detail=False, url_path='archive/dates', url_name='archive-date')
+    def list_archive_dates(self, request, *args, **kwargs):
+        dates = Post.objects.dates('created_time', 'month', order='DESC')
+        date_field = DateField()
+        data = [date_field.to_representation(date) for date in dates]
+        return Response(data=data, status=status.HTTP_200_OK)
+
+    @action(methods=['GET'], detail=True, url_path='comments', url_name='comment', pagination_class=LimitOffsetPagination, serializer_class=CommentsSerializer)
+    def list_comments(self, request, *args, **kwargs):
+        post = self.get_object()
+        queryset = post.comments_set.all().order_by('-created_time')
+        page = self.paginate_queryset(queryset)
+        serializer = self.get_serializer(page, many=True)
+        return self.get_paginated_response(serializer.data)
+
+index = PostViewSet.as_view({'get': 'list'})
+
 # def detail(request, pk):
 #     post = get_object_or_404(Post, pk=pk)
 #

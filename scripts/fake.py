@@ -24,6 +24,10 @@ if __name__ == '__main__':
     # os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'blogproject.settings.production')
     django.setup()
 
+
+
+
+
     from blog.models import Post, Category, Tag
     from comments.models import Comments
     from django.contrib.auth.models import User
