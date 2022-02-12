@@ -73,6 +73,15 @@ class PostRetrieveSerializer(serializers.ModelSerializer):
         ]
 
 
+class HighlightedCharField(CharField):
+    def to_representation(self, value):
+        value = super().to_representation(value)
+        request = self.context["request"]
+        query_v = request.query_params['text'] # 传入的查询参数值，比如?text=md中的md
+        highlighter = Highlighter(query_v)
+        return highlighter.highlight(value)
+
+
 class PostHaystackSerializer(HaystackSerializerMixin, PostRetrieveSerializer):
     title = HighlightedCharField()
     summary = HighlightedCharField(source="body")
@@ -90,10 +99,3 @@ class PostHaystackSerializer(HaystackSerializerMixin, PostRetrieveSerializer):
             'views',
         }
 
-class HighlightedCharField(CharField):
-    def to_representation(self, value):
-        value = super().to_representation(value)
-        request = self.context["request"]
-        query_v = request.query_params['text'] # 传入的查询参数值，比如?text=md中的md
-        highlighter = Highlighter(query_v)
-        return highlighter.highlight(value)
