@@ -90,12 +90,47 @@ from .utils import Highlighter
 # 导入自定义的改过的高亮类
 
 
-
+from  rest_framework_extensions.cache.decorators import cache_response
 
 
 class PostSearchView(HaystackViewSet):
     index_models = [Post]
     serializer_class = PostHaystackSerializer
+
+
+from rest_framework_extensions.key_constructor.bits import (
+    ListSqlQueryKeyBit,
+    PaginationKeyBit,
+    RetrieveSqlQueryKeyBit,
+)
+from rest_framework_extensions.key_constructor.constructors import DefaultKeyConstructor
+from .utils import UpdatedAtKeyBit
+
+
+class PostUpdatedAtKeyBit(UpdatedAtKeyBit):
+    key = "post_updated_at"
+
+
+class CommentUpdatedAtKeyBit(UpdatedAtKeyBit):
+    key = "comment_updated_at"
+
+
+class PostListKeyConstructor(DefaultKeyConstructor):
+    list_sql = ListSqlQueryKeyBit()
+    pagination = PaginationKeyBit()
+    updated_at = PostUpdatedAtKeyBit()
+
+
+class PostObjectKeyConstructor(DefaultKeyConstructor):
+    retrieve_sql = RetrieveSqlQueryKeyBit()
+    updated_at = PostUpdatedAtKeyBit()
+
+
+class CommentListKeyConstructor(DefaultKeyConstructor)
+    list_sql = ListSqlQueryKeyBit()
+    pagination = PaginationKeyBit()
+    updated_at = CommentUpdatedAtKeyBit()
+
 
 class PostViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     serializer_class = PostRetrieveSerializer
@@ -107,6 +142,14 @@ class PostViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gen
     filter_backends = [DjangoFilterBackend]
     filter_class = PostFilter
 
+    @cache_response(timeout=5*60, key_func=PostListKeyConstructor())
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+
+    @cache_response(timeout=5*60, key_func=PostObjectKeyConstructor())
+    def retrieve(self, request, *args, **kwargs):
+        return super(PostViewSet, self).retrieve(request, *args, **kwargs)
+
     @action(methods=['GET'], detail=False, url_path='archive/dates', url_name='archive-date')
     def list_archive_dates(self, request, *args, **kwargs):
         dates = Post.objects.dates('created_time', 'month', order='DESC')
@@ -114,6 +157,7 @@ class PostViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.Gen
         data = [date_field.to_representation(date) for date in dates]
         return Response(data=data, status=status.HTTP_200_OK)
 
+    @cache_response(timeout=5*60, key_func=CommentListKeyConstructor())
     @action(methods=['GET'], detail=True, url_path='comments', url_name='comment', pagination_class=LimitOffsetPagination, serializer_class=CommentsSerializer)
     def list_comments(self, request, *args, **kwargs):
         post = self.get_object()
@@ -232,3 +276,5 @@ class PostTagsView(IndexView):
     def get_queryset(self):
         tag = get_object_or_404(Tag, pk=self.kwargs.get('tag_id'))
         return super(PostTagsView, self).get_queryset().filter(tags=tag)
+
+

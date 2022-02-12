@@ -11,6 +11,9 @@ from django.utils.functional import cached_property
 import re
 from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
+from django.db.models.signals import post_delete, post_save
+from django.core.cache import cache
+from datetime import datetime
 
 
 # 抽成通用，md->html的转换函数
@@ -112,3 +115,11 @@ class Post(models.Model):
     @cached_property
     def rich_content(self):
         return gen_rich_conent(self.body)
+
+
+def change_post_updated_at(sender=None, instance=None, *args, **kwargs):
+    cache.set("post_updated_at", datetime.utcnow())
+
+
+post_save.connect(receiver=change_post_updated_at, sender=Post)
+post_delete.connect(receiver=change_post_updated_at, sender=Post)

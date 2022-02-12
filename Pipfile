@@ -15,6 +15,7 @@ coverage = "*"
 djangorestframework = "*"
 django-filter = "*"
 drf-haystack = "*"
+drf-extensions = "*"
 
 [dev-packages]
 fabric = "*"
