@@ -2,7 +2,7 @@ version: '3.2'
 
 volumes:
   esdata-dev:
-  redis-data:
+#  redis-data:
 
 services:
   elasticsearch-dev:
@@ -27,17 +27,17 @@ services:
       nofile:
         soft: 65536
         hard: 65536
-  redis-dev:
-    image: 'bitnami/redis:5.0'
-    container_name: redis-dev
-    ports:
-    - '6379:6379'
-    volumes:
-    - type: bind
-      source: redis-data
-      target: /bitnami/redis/data
-    env_file:
-      - .envs/.local
+#  redis-dev:
+#    image: 'bitnami/redis:5.0'
+#    container_name: redis-dev
+#    ports:
+#    - '6379:6379'
+#    volumes:
+#    - type: bind
+#      source: redis-data
+#      target: /bitnami/redis/data
+#    env_file:
+#      - .envs/.local
   django-blog-dev:
     depends_on:
       - elasticsearch-dev
