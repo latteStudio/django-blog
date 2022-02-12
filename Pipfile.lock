@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c0e570ab12b75b5483fbb01de0066a8973b6c46d3dc7ed9f70e2573ee745d85e"
+            "sha256": "c8d3bfc127757c8bbcc7df91dc107a8acb69df74236de5aafb5a0ce8afe280ed"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -102,11 +102,19 @@
         },
         "djangorestframework": {
             "hashes": [
-                "sha256:0c33407ce23acc68eca2a6e46424b008c9c02eceb8cf18581921d0092bc1f2ee",
-                "sha256:24c4bf58ed7e85d1fe4ba250ab2da926d263cd57d64b03e8dcef0ac683f8b1aa"
+                "sha256:6d1d59f623a5ad0509fe0d6bfe93cbdfe17b8116ebc8eda86d45f6e16e819aaf",
+                "sha256:f747949a8ddac876e879190df194b925c177cdeb725a099db1460872f7c0a7f2"
             ],
             "index": "pypi",
-            "version": "==3.13.1"
+            "version": "==3.12.4"
+        },
+        "drf-haystack": {
+            "hashes": [
+                "sha256:7c662cf5d5948007bbcdd35cb0a39c3143956086662780aab75cd61a0e7c03b0",
+                "sha256:c8744aed00ffc176834f14dd301536a0572e0dc172e38d2d34ad98a32ce03283"
+            ],
+            "index": "pypi",
+            "version": "==1.8.11"
         },
         "elasticsearch": {
             "hashes": [
@@ -118,11 +126,11 @@
         },
         "faker": {
             "hashes": [
-                "sha256:534c9410cd003b794900504d37f0afaf8275bfe8865583250799f696cf227cd3",
-                "sha256:820e55f62b428a4d55f6700358167e84a6ba3f8371e9ef39f9ca03a504dcae18"
+                "sha256:b996c2162448241a48155df2077458d6fcf1adcee9a6d1201bb9c06c40e8f48d",
+                "sha256:e1939ea638e7bacfa4dce69f872bdd7d53c1b23a92f1bd9f530590c93a4677e0"
             ],
             "index": "pypi",
-            "version": "==12.1.0"
+            "version": "==12.3.0"
         },
         "gunicorn": {
             "hashes": [
@@ -335,10 +343,10 @@
         },
         "pathlib2": {
             "hashes": [
-                "sha256:7a4329d67beff9a712e1d3ae147e4e3e108b0bfd284ffdea03a635126c76b3c0",
-                "sha256:aa175e519a843b93bdbbe894b512192480d22620800c6a162fd297a6644259ec"
+                "sha256:5266a0fd000452f1b3467d782f079a4343c63aaa119221fbdc4e39577489ca5b",
+                "sha256:9fe0edad898b83c0c3e199c842b27ed216645d2e177757b2dd67384d4113c641"
             ],
-            "version": "==2.3.7"
+            "version": "==2.3.7.post1"
         },
         "pycparser": {
             "hashes": [

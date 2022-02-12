@@ -83,6 +83,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .filters import PostFilter
 from comments.serializer import CommentsSerializer
 
+from drf_haystack.viewsets import HaystackViewSet
+from .serializers import PostHaystackSerializer
+
+
+class PostSearchView(HaystackViewSet):
+    index_models = [Post]
+    serializer_class = PostHaystackSerializer
 
 class PostViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     serializer_class = PostRetrieveSerializer
